@@ -4,6 +4,7 @@ import { Suspense, useMemo } from "react";
 import { Physics } from "@react-three/rapier";
 import { generateGameLevel } from "./store";
 import { KeyboardControls } from "@react-three/drei";
+import { Menu } from "./components/Menu";
 
 export const Controls = {
   forward: "forward",
@@ -27,7 +28,7 @@ function App() {
 
   return (
     <KeyboardControls map={map}>
-      <Canvas shadows camera={{ position: [0, 6, 14], fov: 42 }}>
+      <Canvas shadows camera={{ position: [0, 5, 14], fov: 42 }}>
         <color attach="background" args={["#dbecfb"]} />
         <fog attach="fog" args={["#dbecfb", 30, 40]} />
         <Suspense>
@@ -36,6 +37,7 @@ function App() {
           </Physics>
         </Suspense>
       </Canvas>
+      <Menu />
     </KeyboardControls>
   );
 }

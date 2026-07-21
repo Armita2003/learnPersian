@@ -3,20 +3,24 @@ import { CylinderCollider, RigidBody } from "@react-three/rapier";
 import { useGameStore } from "../store";
 
 export const LetterSpots = () => {
-  //   const { level, currentLetter, currentStage } = useGameStore((state) => ({
-  //     level: state.level,
-  //     currentLetter: state.currentLetter,
-  //     currentStage: state.currentStage,
-  //   }));
   const level = useGameStore((state) => state.level);
-  const currentLetter = useGameStore((state) => state.currentLetter);
   const currentStage = useGameStore((state) => state.currentStage);
+  const letterTouched = useGameStore((state) => state.letterTouched);
 
   if (!level) return null;
   return level[currentStage].map((letter, index) => (
-    <group key={letter.name} rotation-y={(index / level[currentStage].length) * Math.PI * 2}>
+    <group
+      key={`${currentStage}-${letter.name}`}
+      rotation-y={(index / level[currentStage].length) * Math.PI * 2}
+    >
       <group position-x={3.5} position-z={-3.5}>
-        <RigidBody colliders={false} type="fixed">
+        <RigidBody
+          colliders={false}
+          type="fixed"
+          onCollisionEnter={() => {
+            letterTouched(letter);
+          }}
+        >
           <CylinderCollider args={[0.25 / 2, 1]} />
           <Cylinder scale={[1, 0.25, 1]}>
             <meshStandardMaterial color="white" />

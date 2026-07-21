@@ -17,6 +17,7 @@ export function Character(props) {
         morphTargetDictionary={nodes.mesh_char_040.morphTargetDictionary}
         morphTargetInfluences={nodes.mesh_char_040.morphTargetInfluences}
         scale={100}
+        castShadow
       />
     </group>
   );
